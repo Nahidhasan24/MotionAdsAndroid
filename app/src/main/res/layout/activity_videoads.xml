@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.Videoads_Activity"
+    android:orientation="vertical"
+    android:background="@drawable/newui">
+
+   <ScrollView
+       android:layout_width="350dp"
+       android:layout_height="match_parent"
+       android:layout_marginLeft="30dp"
+       android:layout_marginTop="70dp"
+       >
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:gravity="center"
+
+           >
+
+           <!-- akhan theke suru album one -->
+
+           <LinearLayout
+               android:id="@+id/videoadd1"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:orientation="horizontal"
+               android:layout_margin="10dp"
+               android:background="@drawable/left_shade"
+               >
+               <com.airbnb.lottie.LottieAnimationView
+                   android:layout_width="120dp"
+                   android:layout_height="70dp"
+                   app:lottie_rawRes="@raw/bitcoin"
+                   app:lottie_autoPlay="true"
+                   app:lottie_loop="true"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical"
+                   >
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Video Ads"
+                       android:textSize="25dp"
+                       android:textStyle="italic"
+                       android:fontFamily="serif"
+                       android:textColor="#062DF6"
+                       android:maxLines="3"
+                       android:gravity="center_horizontal"
+                       android:layout_marginTop="5dp"
+                       />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginTop="2dp"
+
+                       android:textStyle="bold"
+                       android:maxLines="1"
+                       android:textColor="#F60505"
+                       android:gravity="center"
+                       android:textSize="10sp"
+                       android:textAllCaps="true"
+                       />
+
+               </LinearLayout>
+
+
+
+
+           </LinearLayout>
+
+           <!-- ata 2 numbur album -->
+
+           <LinearLayout
+               android:id="@+id/videoadd2"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:orientation="horizontal"
+               android:layout_margin="10dp"
+               android:background="@drawable/left_shade"
+               >
+               <com.airbnb.lottie.LottieAnimationView
+                   android:layout_width="120dp"
+                   android:layout_height="70dp"
+                   app:lottie_rawRes="@raw/bitcoin"
+                   app:lottie_autoPlay="true"
+                   app:lottie_loop="true"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical"
+                   >
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Video Ads"
+                       android:textSize="25dp"
+                       android:textStyle="italic"
+                       android:fontFamily="serif"
+                       android:textColor="#062DF6"
+                       android:maxLines="3"
+                       android:gravity="center_horizontal"
+                       android:layout_marginTop="5dp"
+                       />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginTop="2dp"
+
+                       android:textStyle="bold"
+                       android:maxLines="1"
+                       android:textColor="#F60505"
+                       android:gravity="center"
+                       android:textSize="10sp"
+                       android:textAllCaps="true"
+                       />
+
+               </LinearLayout>
+
+
+
+
+           </LinearLayout>
+
+           <!-- ata 3 numbur album -->
+
+           <LinearLayout
+               android:id="@+id/videoadd3"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:orientation="horizontal"
+               android:layout_margin="10dp"
+               android:background="@drawable/left_shade"
+               >
+               <com.airbnb.lottie.LottieAnimationView
+                   android:layout_width="120dp"
+                   android:layout_height="70dp"
+                   app:lottie_rawRes="@raw/bitcoin"
+                   app:lottie_autoPlay="true"
+                   app:lottie_loop="true"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical"
+                   >
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Video Ads"
+                       android:textSize="25dp"
+                       android:textStyle="italic"
+                       android:fontFamily="serif"
+                       android:textColor="#062DF6"
+                       android:maxLines="3"
+                       android:gravity="center_horizontal"
+                       android:layout_marginTop="5dp"
+                       />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginTop="2dp"
+
+                       android:textStyle="bold"
+                       android:maxLines="1"
+                       android:textColor="#F60505"
+                       android:gravity="center"
+                       android:textSize="10sp"
+                       android:textAllCaps="true"
+                       />
+
+               </LinearLayout>
+
+
+
+
+           </LinearLayout>
+           <!-- ata 4 numbur album -->
+
+           <LinearLayout
+               android:id="@+id/videoadd4"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:orientation="horizontal"
+               android:layout_margin="10dp"
+               android:background="@drawable/left_shade"
+               >
+               <com.airbnb.lottie.LottieAnimationView
+                   android:layout_width="120dp"
+                   android:layout_height="70dp"
+                   app:lottie_rawRes="@raw/bitcoin"
+                   app:lottie_autoPlay="true"
+                   app:lottie_loop="true"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical"
+                   >
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Video Ads"
+                       android:textSize="25dp"
+                       android:textStyle="italic"
+                       android:fontFamily="serif"
+                       android:textColor="#062DF6"
+                       android:maxLines="3"
+                       android:gravity="center_horizontal"
+                       android:layout_marginTop="5dp"
+                       />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginTop="2dp"
+
+                       android:textStyle="bold"
+                       android:maxLines="1"
+                       android:textColor="#F60505"
+                       android:gravity="center"
+                       android:textSize="10sp"
+                       android:textAllCaps="true"
+                       />
+
+               </LinearLayout>
+
+
+
+
+           </LinearLayout>
+
+           <!-- ata 5 numbur album -->
+
+           <LinearLayout
+               android:id="@+id/videoadd5"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:orientation="horizontal"
+               android:layout_margin="10dp"
+               android:background="@drawable/left_shade"
+               >
+               <com.airbnb.lottie.LottieAnimationView
+                   android:layout_width="120dp"
+                   android:layout_height="70dp"
+                   app:lottie_rawRes="@raw/bitcoin"
+                   app:lottie_autoPlay="true"
+                   app:lottie_loop="true"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical"
+                   >
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Video Ads"
+                       android:textSize="25dp"
+                       android:textStyle="italic"
+                       android:fontFamily="serif"
+                       android:textColor="#062DF6"
+                       android:maxLines="3"
+                       android:gravity="center_horizontal"
+                       android:layout_marginTop="5dp"
+                       />
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginTop="2dp"
+
+                       android:textStyle="bold"
+                       android:maxLines="1"
+                       android:textColor="#F60505"
+                       android:gravity="center"
+                       android:textSize="10sp"
+                       android:textAllCaps="true"
+                       />
+
+               </LinearLayout>
+
+
+
+
+           </LinearLayout>
+
+
+       </LinearLayout>
+   </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.rahat.mwltd">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Mwltd"
+        tools:targetApi="31">
+        <activity
+            android:name=".Activitys.AddMoneyActivity"
+            android:exported="false" />
+        <activity android:name=".Activitys.Promotion_Activity" />
+        <activity android:name=".Activitys.Profile_Activity" />
+        <activity android:name=".Activitys.Rank_Activity" />
+        <activity android:name=".Activitys.SeeMore" />
+        <activity android:name=".Activitys.Notice_Activity" />
+        <activity android:name=".Activitys.Wallet_Activity" />
+        <activity android:name=".Activitys.BannerAds" />
+        <activity android:name=".Activitys.indrastitial_Activity" />
+        <activity android:name=".Activitys.Reward_Activity" />
+        <activity android:name=".Activitys.Webvisit_Activity" />
+        <activity android:name=".Activitys.Clickads_Activity" />
+        <activity android:name=".Activitys.Videoads_Activity" />
+        <activity android:name=".Activitys.About_Activity" />
+        <activity android:name=".Activitys.HelpCenter_Activity" />
+        <activity android:name=".Activitys.Login_Activity"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.Register_Activity" />
+        <activity
+            android:name=".Activitys.MainActivity"
+            android:exported="false">
+
+        </activity>
+    </application>
+
+</manifest>

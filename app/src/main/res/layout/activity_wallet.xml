@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.Wallet_Activity"
+    android:orientation="vertical"
+    android:background="@drawable/newui">
+
+
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/left_shade"
+        android:text="BDT = 560 taka"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:fontFamily="serif"
+        android:textColor="#000000"
+        />
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/two_color_curved"
+        android:hint="  Number :"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:drawableStart="@drawable/phone"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:hint="  Amount :"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textColorHint="@color/white"
+        android:background="@drawable/two_color_curved"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:drawableStart="@drawable/payment"
+        android:layout_gravity="center"
+        />
+    <EditText
+        android:id="@+id/numberoption"
+        android:layout_width="250dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="3dp"
+        android:hint="  your payment method :"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#7C7979"
+        android:background="@drawable/details_back"
+        android:padding="10dp"
+        android:textColor="#050505"
+        android:drawableStart="@drawable/trid"
+        android:layout_gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/withdrowbtn"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:text="Withdrow"
+            android:background="@drawable/custom_style"
+            android:fontFamily="serif"
+            android:textStyle="bold"
+            android:textColor="#FFFEFE"
+            />
+        <Button
+            android:id="@+id/history"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:text="History"
+            android:background="@drawable/custom_style"
+            android:fontFamily="serif"
+            android:textStyle="bold"
+            android:textColor="#FFFEFE"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
