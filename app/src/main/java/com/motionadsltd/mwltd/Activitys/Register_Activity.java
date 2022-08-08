@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -108,6 +109,7 @@ public class Register_Activity extends AppCompatActivity {
                                             }else{
                                                 progressDialog.dismiss();
                                                 Toast.makeText(Register_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                Log.d("MyTag", "onComplete: "+task.getException());
                                             }
                                         }
                                     });
@@ -115,6 +117,7 @@ public class Register_Activity extends AppCompatActivity {
                         }else{
                             progressDialog.dismiss();
                             Toast.makeText(Register_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            Log.d("MyTag", "onComplete: "+task.getException());
                         }
                     }
                 });

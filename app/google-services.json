@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "894938970875",
-    "project_id": "motion-ads-f9c38",
-    "storage_bucket": "motion-ads-f9c38.appspot.com"
+    "project_number": "363208192432",
+    "project_id": "motion-ads-941be",
+    "storage_bucket": "motion-ads-941be.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:894938970875:android:cd75d5e35b124ce7178e5e",
+        "mobilesdk_app_id": "1:363208192432:android:8c1733f0a4cf539ef96675",
         "android_client_info": {
-          "package_name": "com.rahat.mwltd"
+          "package_name": "com.motionadsltd.mwltd"
         }
       },
       "oauth_client": [
         {
-          "client_id": "894938970875-3eu7f4pbrg5cf25uvib70v7bsnabr89p.apps.googleusercontent.com",
+          "client_id": "363208192432-ing5gcm0a313juhui483rf3lj9l9gb7l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDt5l5l8poTjKCSH-w72fwTvHtpkEg8G7w"
+          "current_key": "AIzaSyCoiDMI8DDmqySk1IVzrpnqxIAaN9V2Lik"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "894938970875-3eu7f4pbrg5cf25uvib70v7bsnabr89p.apps.googleusercontent.com",
+              "client_id": "363208192432-ing5gcm0a313juhui483rf3lj9l9gb7l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
