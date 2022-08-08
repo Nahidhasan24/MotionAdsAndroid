@@ -34,17 +34,17 @@
         <activity android:name="com.motionadsltd.mwltd.Activitys.About_Activity" />
         <activity android:name="com.motionadsltd.mwltd.Activitys.HelpCenter_Activity" />
         <activity android:name="com.motionadsltd.mwltd.Activitys.Login_Activity"
-            android:exported="false"
+            android:exported="true"
             >
-        </activity>
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Register_Activity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+        </activity>
+        <activity android:name="com.motionadsltd.mwltd.Activitys.Register_Activity"
+            android:exported="false">
         </activity>
         <activity
             android:name="com.motionadsltd.mwltd.Activitys.MainActivity"
