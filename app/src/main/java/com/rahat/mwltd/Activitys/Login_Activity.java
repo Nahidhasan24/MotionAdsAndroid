@@ -10,44 +10,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rahat.mwltd.R;
+import com.rahat.mwltd.databinding.ActivityLoginBinding;
 
 
-public class Login_Activity<LoginActivity> extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
 
-    private EditText username,pass;
-    private Button login;
-    private TextView newregister;
+    ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        binding=ActivityLoginBinding.inflate(getLayoutInflater());
 
 
-
-        username = findViewById(R.id.lusername);
-        pass = findViewById(R.id.lpass);
-        login = findViewById(R.id.loginbtn);
-        newregister = findViewById(R.id.newregister);
-
-
-        newregister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in = new Intent(Login_Activity.this, Register_Activity.class);
-                startActivity(in);
-            }
-        });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-               startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-
-            }
-        });
     }
 
 
