@@ -1,16 +1,11 @@
-package com.rahat.mwltd.Activitys;
+package com.motionadsltd.mwltd.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.rahat.mwltd.R;
-import com.rahat.mwltd.databinding.ActivityLoginBinding;
+import com.motionadsltd.mwltd.R;
+import com.motionadsltd.mwltd.databinding.ActivityLoginBinding;
 
 
 public class Login_Activity extends AppCompatActivity {

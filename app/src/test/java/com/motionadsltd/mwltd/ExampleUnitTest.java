@@ -1,4 +1,4 @@
-package com.rahat.mwltd;
+package com.motionadsltd.mwltd;
 
 import org.junit.Test;
 

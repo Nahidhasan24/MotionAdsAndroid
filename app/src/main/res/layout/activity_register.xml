@@ -42,14 +42,14 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
         <EditText
-            android:id="@+id/rusername"
+            android:id="@+id/rmail"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/custom_style"
-            android:drawableStart="@drawable/person"
-            android:hint="User Name :"
-            android:inputType="textPersonName"
+            android:drawableStart="@drawable/mail"
+            android:hint="User Mail :"
+            android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -93,19 +93,7 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="#EAEFF1" />
-        <EditText
-            android:id="@+id/rreffer"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/custom_style"
-            android:drawableStart="@drawable/team"
-            android:hint="Reffer Code :"
-            android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+
         <Button
             android:id="@+id/registerBtn"
             android:layout_width="160dp"

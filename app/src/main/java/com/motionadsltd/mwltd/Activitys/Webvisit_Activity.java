@@ -1,4 +1,4 @@
-package com.rahat.mwltd.Activitys;
+package com.motionadsltd.mwltd.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.rahat.mwltd.R;
+import com.motionadsltd.mwltd.R;
 
 public class Webvisit_Activity extends AppCompatActivity {
 

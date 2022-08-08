@@ -1,4 +1,4 @@
-package com.rahat.mwltd.Activitys;
+package com.motionadsltd.mwltd.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.rahat.mwltd.databinding.ActivityMainBinding;
+import com.motionadsltd.mwltd.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

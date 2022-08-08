@@ -1,16 +1,16 @@
-package com.rahat.mwltd.Activitys;
+package com.motionadsltd.mwltd.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.rahat.mwltd.R;
+import com.motionadsltd.mwltd.R;
 
-public class Profile_Activity extends AppCompatActivity {
+public class AddMoneyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_add_money);
     }
 }

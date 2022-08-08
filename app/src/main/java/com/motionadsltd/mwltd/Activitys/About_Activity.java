@@ -1,4 +1,4 @@
-package com.rahat.mwltd.Activitys;
+package com.motionadsltd.mwltd.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.rahat.mwltd.R;
+import com.motionadsltd.mwltd.R;
 
 public class About_Activity extends AppCompatActivity {
 
