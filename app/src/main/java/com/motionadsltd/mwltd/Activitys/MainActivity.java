@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.motionadsltd.mwltd.Adapters.SliderAdapterExample;
+import com.motionadsltd.mwltd.Models.Appconfig;
 import com.motionadsltd.mwltd.Models.SliderItem;
 import com.motionadsltd.mwltd.databinding.ActivityMainBinding;
 
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mRef;
     DatabaseReference mSlider;
+    DatabaseReference mConfig;
+    Appconfig appconfig;
     ProgressDialog progressDialog;
     SliderAdapterExample sliderAdapterExample;
     ArrayList<SliderItem>sliderItemArrayList=new ArrayList<>();
@@ -37,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference().child("users");
         mSlider = FirebaseDatabase.getInstance().getReference().child("slider");
+        mConfig = FirebaseDatabase.getInstance().getReference().child("appconfig");
         // init progress dialog
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Loading....");
         progressDialog.show();
         loadSlider();
+        getAppcofig();
         binding.videoAdsBtn.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(), Videoads_Activity.class));
             ///
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         binding.noticebtn.setOnClickListener(view -> {
 
             Intent in=new Intent( MainActivity.this, Notice_Activity.class);
+            in.putExtra("url",appconfig.getNotice());
             startActivity(in);
         });
         ///
@@ -103,6 +109,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void getAppcofig() {
+        mConfig.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    appconfig=snapshot.getValue(Appconfig.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     //getting slider image data from database
     private void loadSlider() {
         mSlider.addListenerForSingleValueEvent(new ValueEventListener() {
