@@ -249,7 +249,7 @@
                            android:layout_height="wrap_content"
                            android:layout_margin="10dp"
                            android:gravity="center_horizontal"
-
+                            android:id="@+id/profileBtn"
                            android:orientation="vertical">
 
                            <com.airbnb.lottie.LottieAnimationView

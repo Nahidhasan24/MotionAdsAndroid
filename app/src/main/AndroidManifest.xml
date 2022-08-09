@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.motionadsltd.mwltd">
+    package="com.motionadsltd.mwltd" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,41 +15,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mwltd"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
-            android:name="com.motionadsltd.mwltd.Activitys.AddMoneyActivity"
+            android:name=".Activitys.AddMoneyActivity"
             android:exported="false" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Promotion_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Profile_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Rank_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.SeeMore" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Notice_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Wallet_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.BannerAds" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.indrastitial_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Reward_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Webvisit_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Clickads_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Videoads_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.About_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.HelpCenter_Activity" />
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Login_Activity"
-            android:exported="true"
-            >
+        <activity android:name=".Activitys.Promotion_Activity" />
+        <activity android:name=".Activitys.Profile_Activity" />
+        <activity android:name=".Activitys.Rank_Activity" />
+        <activity android:name=".Activitys.SeeMore" />
+        <activity android:name=".Activitys.Notice_Activity" />
+        <activity android:name=".Activitys.Wallet_Activity" />
+        <activity android:name=".Activitys.BannerAds" />
+        <activity android:name=".Activitys.indrastitial_Activity" />
+        <activity android:name=".Activitys.Reward_Activity" />
+        <activity android:name=".Activitys.Webvisit_Activity" />
+        <activity android:name=".Activitys.Clickads_Activity" />
+        <activity android:name=".Activitys.Videoads_Activity" />
+        <activity android:name=".Activitys.About_Activity" />
+        <activity android:name=".Activitys.HelpCenter_Activity" />
+        <activity
+            android:name=".Activitys.Login_Activity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name="com.motionadsltd.mwltd.Activitys.Register_Activity"
-            android:exported="false">
         </activity>
         <activity
-            android:name="com.motionadsltd.mwltd.Activitys.MainActivity"
-            android:exported="false">
-
+            android:name=".Activitys.Register_Activity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".Activitys.MainActivity"
+            android:exported="false" >
         </activity>
     </application>
 
