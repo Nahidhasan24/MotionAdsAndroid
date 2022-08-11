@@ -1,68 +1,295 @@
 package com.motionadsltd.mwltd.Activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.motionadsltd.mwltd.Models.VideoAdsModel;
 import com.motionadsltd.mwltd.R;
+import com.motionadsltd.mwltd.databinding.ActivityVideoadsBinding;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Videoads_Activity extends AppCompatActivity {
 
-    private LinearLayout video1, video2, video3, video4, video5;
-
+    ActivityVideoadsBinding binding;
+    DatabaseReference mRef;
+    FirebaseAuth mAuth;
+    VideoAdsModel videoAdsModel;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_videoads);
+        binding=ActivityVideoadsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        progressDialog=new ProgressDialog(Videoads_Activity.this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setCancelable(false);
+        mAuth=FirebaseAuth.getInstance();
+        mRef= FirebaseDatabase.getInstance().getReference().child("ads");
+        progressDialog.show();
+        checkButtons();
+        binding.videoadd1.setOnClickListener(v->{
 
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("ad1","done");
+            mRef.child(mAuth.getUid())
+                    .child("videoads")
+                    .updateChildren(map)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                if (videoAdsModel.getAd1().equals("done")&&
+                                        videoAdsModel.getAd2().equals("done")&&
+                                        videoAdsModel.getAd3().equals("done")&&
+                                        videoAdsModel.getAd4().equals("done")&&
+                                        videoAdsModel.getAd5().equals("done")){
 
-        video1=findViewById(R.id.videoadd1);
-        video2=findViewById(R.id.videoadd2);
-        video3=findViewById(R.id.videoadd3);
-        video4=findViewById(R.id.videoadd4);
-        video5=findViewById(R.id.videoadd5);
+                                    int use=videoAdsModel.getUse()+1;
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("use",use);
+                                    map.put("last",getIncreasTime());
+                                    mRef.child(mAuth.getUid())
+                                            .child("videoads")
+                                            .updateChildren(map);
 
-        video1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in=new Intent( Videoads_Activity.this, Reward_Activity.class);
-                startActivity(in);
-            }
+                                }
+                            }else{
+                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         });
-        video2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in=new Intent( Videoads_Activity.this,Reward_Activity.class);
-                startActivity(in);
-            }
+        binding.videoadd2.setOnClickListener(v->{
+
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("ad2","done");
+            mRef.child(mAuth.getUid())
+                    .child("videoads")
+                    .updateChildren(map)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                if (videoAdsModel.getAd1().equals("done")&&
+                                        videoAdsModel.getAd2().equals("done")&&
+                                        videoAdsModel.getAd3().equals("done")&&
+                                        videoAdsModel.getAd4().equals("done")&&
+                                        videoAdsModel.getAd5().equals("done")){
+                                    int use=videoAdsModel.getUse()+1;
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("use",use);
+                                    map.put("last",getIncreasTime());
+                                    mRef.child(mAuth.getUid())
+                                            .child("videoads")
+                                            .updateChildren(map);
+
+                                }
+                            }else{
+                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         });
-        video3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in=new Intent( Videoads_Activity.this,Reward_Activity.class);
-                startActivity(in);
-            }
+        binding.videoadd3.setOnClickListener(v->{
+
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("ad3","done");
+            mRef.child(mAuth.getUid())
+                    .child("videoads")
+                    .updateChildren(map)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                if (videoAdsModel.getAd1().equals("done")&&
+                                        videoAdsModel.getAd2().equals("done")&&
+                                        videoAdsModel.getAd3().equals("done")&&
+                                        videoAdsModel.getAd4().equals("done")&&
+                                        videoAdsModel.getAd5().equals("done")){
+                                    int use=videoAdsModel.getUse()+1;
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("use",use);
+                                    map.put("last",getIncreasTime());
+                                    mRef.child(mAuth.getUid())
+                                            .child("videoads")
+                                            .updateChildren(map);
+
+                                }
+                            }else{
+                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         });
-        video4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in=new Intent( Videoads_Activity.this,Reward_Activity.class);
-                startActivity(in);
-            }
+        binding.videoadd4.setOnClickListener(v->{
+
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("ad4","done");
+            mRef.child(mAuth.getUid())
+                    .child("videoads")
+                    .updateChildren(map)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                if (videoAdsModel.getAd1().equals("done")&&
+                                        videoAdsModel.getAd2().equals("done")&&
+                                        videoAdsModel.getAd3().equals("done")&&
+                                        videoAdsModel.getAd4().equals("done")&&
+                                        videoAdsModel.getAd5().equals("done")){
+                                    int use=videoAdsModel.getUse()+1;
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("use",use);
+                                    map.put("last",getIncreasTime());
+                                    mRef.child(mAuth.getUid())
+                                            .child("videoads")
+                                            .updateChildren(map);
+
+                                }
+                            }else{
+                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         });
-        video5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in=new Intent( Videoads_Activity.this,Reward_Activity.class);
-                startActivity(in);
-            }
+        binding.videoadd5.setOnClickListener(v->{
+
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("ad5","done");
+            mRef.child(mAuth.getUid())
+                    .child("videoads")
+                    .updateChildren(map)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                if (videoAdsModel.getAd1().equals("done")&&
+                                        videoAdsModel.getAd2().equals("done")&&
+                                        videoAdsModel.getAd3().equals("done")&&
+                                        videoAdsModel.getAd4().equals("done")&&
+                                        videoAdsModel.getAd5().equals("done")){
+                                    int use=videoAdsModel.getUse()+1;
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("use",use);
+                                    map.put("last",getIncreasTime());
+                                    mRef.child(mAuth.getUid())
+                                            .child("videoads")
+                                            .updateChildren(map);
+
+                                }
+                            }else{
+                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         });
+    }
+
+    private void checkButtons() {
+        mRef.child(mAuth.getUid())
+                .child("videoads")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        progressDialog.dismiss();
+                        if (snapshot.exists()){
+                             videoAdsModel=snapshot.getValue(VideoAdsModel.class);
+                            if (videoAdsModel.getAd1().equals("done")){
+                                binding.videoadd1.setVisibility(View.GONE);
+                            }
+
+                            if (videoAdsModel.getAd2().equals("done")){
+                                binding.videoadd2.setVisibility(View.GONE);
+                            }
+
+                            if (videoAdsModel.getAd3().equals("done")){
+                                binding.videoadd3.setVisibility(View.GONE);
+                            }
+
+                            if (videoAdsModel.getAd4().equals("done")){
+                                binding.videoadd4.setVisibility(View.GONE);
+                            }
+
+                            if (videoAdsModel.getAd5().equals("done")){
+                                binding.videoadd5.setVisibility(View.GONE);
+                            }
 
 
+                            if (videoAdsModel.getUse()>=4){
+                                HashMap<String,Object> map=new HashMap<>();
+                                map.put("time",getTimeDate());
+                                mRef.child(mAuth.getUid())
+                                        .child("videoads")
+                                        .updateChildren(map)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    onBackPressed();
+                                                }else{
+                                                    Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                    onBackPressed();
+                                                }
+                                            }
+                                        });
+                            }
 
 
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+    private String getIncreasTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        String currentDateandTime = sdf.format(new Date());
+
+        Date date = null;
+        try {
+            date = sdf.parse(currentDateandTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR, 1);
+
+        return String.valueOf(calendar.getTime().getHours());
+    }
+    private String getTimeDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
+        return currentDateandTime;
     }
 }
