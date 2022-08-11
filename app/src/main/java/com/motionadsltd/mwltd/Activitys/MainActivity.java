@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.motionadsltd.mwltd.Adapters.SliderAdapterExample;
 import com.motionadsltd.mwltd.Models.Appconfig;
+import com.motionadsltd.mwltd.Models.InterAds;
 import com.motionadsltd.mwltd.Models.SliderItem;
 import com.motionadsltd.mwltd.Models.VideoAdsModel;
 import com.motionadsltd.mwltd.databinding.ActivityMainBinding;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         loadSlider();
         getAppcofig();
         getVideoAdsData();
-        checkVideoTime();
+        getInterAdsData();
         binding.videoAdsBtn.setOnClickListener(v -> {
 
             mAds.child(mAuth.getUid())
@@ -137,12 +138,42 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ///
-        binding.viewadsbtn.setOnClickListener(view ->
+        binding.viewadsbtn.setOnClickListener(view -> {
 
-        {
+            mAds.child(mAuth.getUid())
+                    .child("interads")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (!snapshot.exists()){
+                                InterAds interAds=new InterAds("no","no","no","no","no",mAuth.getUid(),getTimeDate(),"",0);
+                                mAds.child(mAuth.getUid())
+                                        .child("interads")
+                                        .setValue(interAds)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    Intent in = new Intent(MainActivity.this, Clickads_Activity.class);
+                                                    startActivity(in);
+                                                }else{
+                                                    Toast.makeText(MainActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }else{
+                                Intent in = new Intent(MainActivity.this, Clickads_Activity.class);
+                                startActivity(in);
+                            }
+                        }
 
-            Intent in = new Intent(MainActivity.this, Clickads_Activity.class);
-            startActivity(in);
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
         });
         ///
         binding.visitadsbtn.setOnClickListener(view ->
@@ -170,9 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void checkVideoTime() {
-
-    }
 
     private void getVideoAdsData() {
         mAds.child(mAuth.getUid())
@@ -249,7 +277,81 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void getInterAdsData() {
+        mAds.child(mAuth.getUid())
+                .child("interads")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            videoAdsModel = snapshot.getValue(VideoAdsModel.class);
 
+
+                            if (getTimeDate().compareTo(videoAdsModel.getTime()) < 1) {
+                                /// not meet 24 hour.//
+                            } else {
+                                mAds.child(mAuth.getUid())
+                                        .child("interads")
+                                        .removeValue();
+                            }
+
+
+
+                            if (videoAdsModel.getAd1().equals("done") &&
+                                    videoAdsModel.getAd2().equals("done") &&
+                                    videoAdsModel.getAd3().equals("done") &&
+                                    videoAdsModel.getAd4().equals("done") &&
+                                    videoAdsModel.getAd5().equals("done")) {
+
+                                DateFormat dateFormat = new SimpleDateFormat("HH", Locale.US);
+                                try {
+                                    Date date1 = dateFormat.parse(videoAdsModel.getLast());
+                                    Date date2 = dateFormat.parse(getCurrentDate());
+                                    if (date1.compareTo(date2) > 0) {
+                                        Log.i("app", "Date1 is after Date2");
+                                        Toast.makeText(MainActivity.this, "Not finished yet", Toast.LENGTH_SHORT).show();
+
+                                    } else if (date1.compareTo(date2) <= 0) {
+
+                                        if (videoAdsModel.getAd1().equals("no") &&
+                                                videoAdsModel.getAd2().equals("no") &&
+                                                videoAdsModel.getAd3().equals("no") &&
+                                                videoAdsModel.getAd4().equals("no") &&
+                                                videoAdsModel.getAd5().equals("no")) {
+
+                                        } else {
+                                            HashMap<String, Object> map = new HashMap<>();
+                                            map.put("ad1", "no");
+                                            map.put("ad2", "no");
+                                            map.put("ad3", "no");
+                                            map.put("ad4", "no");
+                                            map.put("ad5", "no");
+                                            map.put("last", "");
+
+                                            mAds.child(mAuth.getUid())
+                                                    .child("interads")
+                                                    .updateChildren(map);
+
+                                        }
+                                    }
+
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
     private void getAppcofig() {
         mConfig.addValueEventListener(new ValueEventListener() {
             @Override
