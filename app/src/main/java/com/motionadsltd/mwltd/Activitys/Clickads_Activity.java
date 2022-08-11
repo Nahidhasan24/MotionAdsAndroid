@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.motionadsltd.mwltd.Models.InterAds;
+import com.motionadsltd.mwltd.Models.UserModels;
 import com.motionadsltd.mwltd.Models.VideoAdsModel;
 import com.motionadsltd.mwltd.R;
 import com.motionadsltd.mwltd.databinding.ActivityClickadsBinding;
@@ -33,8 +34,10 @@ public class Clickads_Activity extends AppCompatActivity {
 
     ActivityClickadsBinding binding;
     DatabaseReference mRef;
+    DatabaseReference mUser;
     FirebaseAuth mAuth;
     InterAds interAds;
+    UserModels userModels;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,10 @@ public class Clickads_Activity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         mAuth= FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("ads");
+        mUser= FirebaseDatabase.getInstance().getReference().child("users");
         progressDialog.show();
         checkButtons();
+        getUserData();
         binding.clikadd.setOnClickListener(v->{
 
             HashMap<String,Object> map=new HashMap<>();
@@ -204,7 +209,23 @@ public class Clickads_Activity extends AppCompatActivity {
                                     map.put("last",getIncreasTime());
                                     mRef.child(mAuth.getUid())
                                             .child("interads")
-                                            .updateChildren(map);
+                                            .updateChildren(map)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()){
+
+                                                        int mainCoin=userModels.getCoin()+5;
+                                                        HashMap<String,Object> hashMap=new HashMap<>();
+                                                        hashMap.put("coin",mainCoin);
+                                                        mUser.child(mAuth.getUid())
+                                                                .updateChildren(hashMap);
+
+                                                    }else{
+                                                        Toast.makeText(Clickads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
 
                                 }
                             }else{
@@ -215,6 +236,22 @@ public class Clickads_Activity extends AppCompatActivity {
         });
 
     }
+
+    private void getUserData() {
+        mUser.child(mAuth.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userModels=snapshot.getValue(UserModels.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
     private void checkButtons() {
         mRef.child(mAuth.getUid())
                 .child("interads")
