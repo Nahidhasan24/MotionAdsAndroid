@@ -76,20 +76,20 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (!snapshot.exists()) {
-                                    VideoAdsModel videoAdsModel = new VideoAdsModel("no", "no", "no", "no", "no", mAuth.getUid(), getTimeDate(), "", 0);
-                                    mAds.child(mAuth.getUid())
-                                            .child("videoads")
-                                            .setValue(videoAdsModel)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        startActivity(new Intent(getApplicationContext(), Videoads_Activity.class));
-                                                    } else {
-                                                        Toast.makeText(MainActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
-                                                    }
+                                VideoAdsModel videoAdsModel = new VideoAdsModel("no", "no", "no", "no", "no", mAuth.getUid(), getTimeDate(), "", 0);
+                                mAds.child(mAuth.getUid())
+                                        .child("videoads")
+                                        .setValue(videoAdsModel)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    startActivity(new Intent(getApplicationContext(), Videoads_Activity.class));
+                                                } else {
+                                                    Toast.makeText(MainActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                                                 }
-                                            });
+                                            }
+                                        });
                             } else {
                                 startActivity(new Intent(getApplicationContext(), Videoads_Activity.class));
                             }
