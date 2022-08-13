@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ///
+
         binding.viewadsbtn.setOnClickListener(view -> {
 
             mAds.child(mAuth.getUid())

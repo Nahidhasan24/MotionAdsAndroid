@@ -41,6 +41,7 @@ public class Videoads_Activity extends AppCompatActivity {
     VideoAdsModel videoAdsModel;
     UserModels userModels;
     ProgressDialog progressDialog;
+    int GET_USER_COIN=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +52,9 @@ public class Videoads_Activity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         mAuth=FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("ads");
-        mUser= FirebaseDatabase.getInstance().getReference().child("ads");
+        mUser= FirebaseDatabase.getInstance().getReference().child("users");
         progressDialog.show();
+        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         checkButtons();
         getUserData();
         binding.videoadd1.setOnClickListener(v->{
@@ -213,7 +215,7 @@ public class Videoads_Activity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
 
-                                                int mainCoin=userModels.getCoin()+5;
+                                                int mainCoin=userModels.getCoin()+GET_USER_COIN;
                                                 HashMap<String,Object> hashMap=new HashMap<>();
                                                 hashMap.put("coin",mainCoin);
                                                 mUser.child(mAuth.getUid())

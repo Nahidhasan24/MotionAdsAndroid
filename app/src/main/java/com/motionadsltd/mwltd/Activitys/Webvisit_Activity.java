@@ -225,7 +225,7 @@ public class Webvisit_Activity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
 
-                                                    int mainCoin=userModels.getCoin()+5;
+                                                    int mainCoin=userModels.getCoin()+1;
                                                     HashMap<String,Object> hashMap=new HashMap<>();
                                                     hashMap.put("coin",mainCoin);
                                                     mUser.child(mAuth.getUid())
