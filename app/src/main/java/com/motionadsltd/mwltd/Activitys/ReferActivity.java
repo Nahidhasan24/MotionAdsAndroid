@@ -1,0 +1,195 @@
+package com.motionadsltd.mwltd.Activitys;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.motionadsltd.mwltd.Models.ReferModle;
+import com.motionadsltd.mwltd.Models.TeamsModel;
+import com.motionadsltd.mwltd.Models.UserModels;
+import com.motionadsltd.mwltd.R;
+import com.motionadsltd.mwltd.databinding.ActivityReferBinding;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+
+public class ReferActivity extends AppCompatActivity {
+
+    ActivityReferBinding binding;
+    FirebaseAuth mAuth;
+    DatabaseReference mRef;
+    DatabaseReference mTeam;
+    DatabaseReference mRefer;
+    UserModels userModels;
+    String uid;
+    ArrayList<ReferModle> referModleArrayList=new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding=ActivityReferBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        mAuth=FirebaseAuth.getInstance();
+        mRef= FirebaseDatabase.getInstance().getReference().child("users");
+        mTeam= FirebaseDatabase.getInstance().getReference().child("teams");
+        mRefer= FirebaseDatabase.getInstance().getReference().child("refer");
+        getData();
+        binding.copyRef.setOnClickListener(v->{
+
+        });
+
+    }
+
+    private void loadDiaload() {
+        Dialog dialog=new Dialog(ReferActivity.this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.refer_dialog);
+        dialog.show();
+        EditText editText=dialog.findViewById(R.id.refer_et);
+        dialog.findViewById(R.id.referBtn)
+                .setOnClickListener(v->{
+                    String refer_code=editText.getText().toString();
+                    if (refer_code.isEmpty()){
+                        Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show();
+                        return;
+                    }if (refer_code.equals(userModels.getRefercode())){
+                        Toast.makeText(this, "You can't use your code", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                                UserModels checkModle=dataSnapshot.getValue(UserModels.class);
+                                if (checkModle.getRefercode().equals(refer_code)){
+                                    uid=checkModle.getUid();
+                                    dialog.dismiss();
+                                    wokeRefer(checkModle);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                });
+
+    }
+
+    private void wokeRefer(UserModels model) {
+        ReferModle referModle=new ReferModle(model.getRefercode(),model.getUid());
+        mRefer.child(mAuth.getUid())
+                .setValue(referModle)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            mTeam.child(model.getTeam())
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                TeamsModel teamsModel=new TeamsModel(userModels.getRefercode(),mAuth.getUid(),model.getRefercode());
+                                                mTeam.child(model.getTeam())
+                                                        .child(mAuth.getUid())
+                                                        .setValue(teamsModel)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()){
+                                                                    int refe=model.getRefercount()+1;
+                                                                    HashMap<String,Object> hashMap=new HashMap<>();
+                                                                    hashMap.put("refercount",refe);
+
+                                                                    mRef.child(uid)
+                                                                            .updateChildren(hashMap)
+                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    if (task.isSuccessful()){
+                                                                                       HashMap<String,Object> map=new HashMap<>();
+                                                                                       map.put("referby",model.getRefercode());
+                                                                                       map.put("team",model.getRefercode());
+                                                                                       mRef.child(mAuth.getUid())
+                                                                                               .updateChildren(map)
+                                                                                               .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                   @Override
+                                                                                                   public void onComplete(@NonNull Task<Void> task) {
+                                                                                                       if (task.isSuccessful()){
+                                                                                                           Toast.makeText(ReferActivity.this, "Refer Done", Toast.LENGTH_SHORT).show();
+                                                                                                       }else{
+                                                                                                           Toast.makeText(ReferActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                                                                       }
+                                                                                                   }
+                                                                                               });
+                                                                                    }else{
+                                                                                        Toast.makeText(ReferActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                }
+                                                                            });
+
+                                                                }else{
+                                                                    Toast.makeText(ReferActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+
+                                            }
+
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                        }else{
+                            Toast.makeText(ReferActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+    }
+
+    private void getData() {
+        mRef.child(mAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userModels=snapshot.getValue(UserModels.class);
+                        binding.referCodeTV.setText(""+userModels.getRefercode());
+                        if (userModels.getReferby().equals("")){
+                            loadDiaload();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+}

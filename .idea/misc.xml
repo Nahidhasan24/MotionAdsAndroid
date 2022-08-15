@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MotionAds-Android-new/app/src/main/res/drawable/back_et.xml" value="0.1355" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/drawable/bg_overlay.xml" value="0.2005" />
+        <entry key="..\:/MotionAds-Android-new/app/src/main/res/drawable/dialoag_bg.xml" value="0.1355" />
+        <entry key="..\:/MotionAds-Android-new/app/src/main/res/drawable/text_bg.xml" value="0.1355" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_about.xml" value="0.15476190476190477" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_add_money.xml" value="0.22" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_clickads.xml" value="0.28532608695652173" />
@@ -12,11 +15,13 @@
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_notice.xml" value="0.15476190476190477" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_profile2.xml" value="0.15476190476190477" />
+        <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_refer.xml" value="0.22" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_videoads.xml" value="0.15476190476190477" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_wallet.xml" value="0.28532608695652173" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/activity_webvisit.xml" value="0.28532608695652173" />
         <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/image_slider_layout_item.xml" value="0.15476190476190477" />
+        <entry key="..\:/MotionAds-Android-new/app/src/main/res/layout/refer_dialog.xml" value="0.15425531914893617" />
       </map>
     </option>
   </component>

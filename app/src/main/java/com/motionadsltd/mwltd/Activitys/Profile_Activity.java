@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -46,6 +47,9 @@ public class Profile_Activity extends AppCompatActivity {
         mPlan= FirebaseDatabase.getInstance().getReference().child("plan");
         progressDialog.show();
         getUserData();
+        binding.refer.setOnClickListener(v->{
+            startActivity(new Intent(getApplicationContext(),ReferActivity.class));
+        });
         //upgrading plan
         binding.upgreadBtn.setOnClickListener(v->{
            if (userModels.getAccount().equals("free")){
@@ -59,6 +63,7 @@ public class Profile_Activity extends AppCompatActivity {
            }
         });
     }
+
 
     private void showDialogUser() {
         AlertDialog.Builder builder=new AlertDialog.Builder(Profile_Activity.this);
