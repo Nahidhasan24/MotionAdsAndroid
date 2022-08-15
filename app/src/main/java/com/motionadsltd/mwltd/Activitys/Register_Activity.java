@@ -107,7 +107,7 @@ public class Register_Activity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //putting data on firebase realtime database
-                            UserModels userModels = new UserModels(name, mail, phone, mAuth.getUid(), "on", getTimeDate(), "free", getReferCode(), "", getTimeDate(), 0, 0);
+                            UserModels userModels = new UserModels(name, mail, phone, mAuth.getUid(), "on", getTimeDate(), "free", getReferCode(), "", getTimeDate(),"", 0, 0);
                             mRef.child(mAuth.getUid())
                                     .setValue(userModels)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -1,13 +1,13 @@
 package com.motionadsltd.mwltd.Models;
 
 public class UserModels {
-    private String name,mail,phone,uid,status,create,account,refercode,referby,login;
+    private String name,mail,phone,uid,status,create,account,refercode,referby,login,team;
     private int coin,refercount;
 
     public UserModels() {
     }
 
-    public UserModels(String name, String mail, String phone, String uid, String status, String create, String account, String refercode, String referby, String login, int coin, int refercount) {
+    public UserModels(String name, String mail, String phone, String uid, String status, String create, String account, String refercode, String referby, String login, String team, int coin, int refercount) {
         this.name = name;
         this.mail = mail;
         this.phone = phone;
@@ -18,6 +18,7 @@ public class UserModels {
         this.refercode = refercode;
         this.referby = referby;
         this.login = login;
+        this.team = team;
         this.coin = coin;
         this.refercount = refercount;
     }
@@ -100,6 +101,14 @@ public class UserModels {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 
     public int getCoin() {

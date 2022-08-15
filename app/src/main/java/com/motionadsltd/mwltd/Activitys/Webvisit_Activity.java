@@ -39,6 +39,7 @@ public class Webvisit_Activity extends AppCompatActivity {
     DatabaseReference mUser;
     FirebaseAuth mAuth;
     VisiteAdsModle interAds;
+    int GET_USER_COIN;
     UserModels userModels;
     ProgressDialog progressDialog;
     @Override
@@ -49,6 +50,7 @@ public class Webvisit_Activity extends AppCompatActivity {
         progressDialog=new ProgressDialog(Webvisit_Activity.this);
         progressDialog.setTitle("Loading...");
         progressDialog.setCancelable(false);
+        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         mAuth= FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("ads");
         mUser= FirebaseDatabase.getInstance().getReference().child("users");
@@ -225,7 +227,7 @@ public class Webvisit_Activity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
 
-                                                    int mainCoin=userModels.getCoin()+1;
+                                                    int mainCoin=userModels.getCoin()+GET_USER_COIN;
                                                     HashMap<String,Object> hashMap=new HashMap<>();
                                                     hashMap.put("coin",mainCoin);
                                                     mUser.child(mAuth.getUid())

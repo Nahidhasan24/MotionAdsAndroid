@@ -70,8 +70,6 @@ public class Wallet_Activity extends AppCompatActivity {
                 return;
             }
            int mainCoin=userModels.getCoin()-am;
-
-
             WithdrawModle withdrawModle=new WithdrawModle(userModels.getName(),mAuth.getUid(),number,getTimeDate(),mathod,"pending",am);
             HashMap<String,Object> map=new HashMap<>();
             map.put("coin",mainCoin);

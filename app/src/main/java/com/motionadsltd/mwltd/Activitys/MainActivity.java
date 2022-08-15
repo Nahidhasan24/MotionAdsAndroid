@@ -21,6 +21,7 @@ import com.motionadsltd.mwltd.Adapters.SliderAdapterExample;
 import com.motionadsltd.mwltd.Models.Appconfig;
 import com.motionadsltd.mwltd.Models.InterAds;
 import com.motionadsltd.mwltd.Models.SliderItem;
+import com.motionadsltd.mwltd.Models.UserModels;
 import com.motionadsltd.mwltd.Models.VideoAdsModel;
 import com.motionadsltd.mwltd.Models.VisiteAdsModle;
 import com.motionadsltd.mwltd.databinding.ActivityMainBinding;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mSlider;
     DatabaseReference mAds;
     VideoAdsModel videoAdsModel;
+    UserModels userModels;
+    int USER_COIN=0;
     DatabaseReference mConfig;
     Appconfig appconfig;
     ProgressDialog progressDialog;
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         getVideoAdsData();
         getInterAdsData();
         getClickAdsData();
+
         binding.videoAdsBtn.setOnClickListener(v -> {
 
             mAds.child(mAuth.getUid())
@@ -84,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    startActivity(new Intent(getApplicationContext(), Videoads_Activity.class));
+                                                    startActivity(new Intent(getApplicationContext(), Videoads_Activity.class)
+                                                            .putExtra("coin",USER_COIN)
+                                                    );
                                                 } else {
                                                     Toast.makeText(MainActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                                                 }
@@ -104,43 +110,31 @@ public class MainActivity extends AppCompatActivity {
             ///
 
         });
-
         ///
-        binding.walletbtn.setOnClickListener(view ->
-
-        {
+        binding.walletbtn.setOnClickListener(view -> {
             Intent in = new Intent(MainActivity.this, Wallet_Activity.class);
             startActivity(in);
         });
-
         ///
-        binding.aboutusbtn.setOnClickListener(view ->
-
-        {
+        binding.aboutusbtn.setOnClickListener(view -> {
 
             Intent in = new Intent(MainActivity.this, About_Activity.class);
             startActivity(in);
         });
         ///
-        binding.noticebtn.setOnClickListener(view ->
-
-        {
+        binding.noticebtn.setOnClickListener(view -> {
 
             Intent in = new Intent(MainActivity.this, Notice_Activity.class);
             in.putExtra("url", appconfig.getNotice());
             startActivity(in);
         });
         ///
-        binding.helpcenterbtn.setOnClickListener(view ->
-
-        {
+        binding.helpcenterbtn.setOnClickListener(view -> {
 
             Intent in = new Intent(MainActivity.this, HelpCenter_Activity.class);
             startActivity(in);
         });
-
         ///
-
         binding.viewadsbtn.setOnClickListener(view -> {
 
             mAds.child(mAuth.getUid())
@@ -158,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
                                                     Intent in = new Intent(MainActivity.this, Clickads_Activity.class);
+                                                    in.putExtra("coin",USER_COIN);
                                                     startActivity(in);
                                                 }else{
                                                     Toast.makeText(MainActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
@@ -179,9 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
         ///
-        binding.visitadsbtn.setOnClickListener(view ->
-
-        {
+        binding.visitadsbtn.setOnClickListener(view -> {
             mAds.child(mAuth.getUid())
                     .child("clickads")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -197,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
                                                     Intent in = new Intent(MainActivity.this, Webvisit_Activity.class);
+                                                    in.putExtra("coin",USER_COIN);
                                                     startActivity(in);
                                                 }else{
                                                     Toast.makeText(MainActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
@@ -217,18 +211,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
         ///
-        binding.addmoney.setOnClickListener(view ->
-
-        {
+        binding.addmoney.setOnClickListener(view -> {
 
             Intent in = new Intent(MainActivity.this, AddMoneyActivity.class);
             startActivity(in);
         });
-        binding.profileBtn.setOnClickListener(c ->
-
-        {
+        ///
+        binding.profileBtn.setOnClickListener(c -> {
             startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
         });
 
@@ -475,6 +465,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mRef.child(mAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userModels=snapshot.getValue(UserModels.class);
+                        if (userModels.getAccount().equals("free")){
+                            USER_COIN=1;
+                        }else {
+                            USER_COIN=5;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
     }
 
     //getting slider image data from database
