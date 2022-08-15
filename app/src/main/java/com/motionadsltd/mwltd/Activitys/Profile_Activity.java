@@ -45,6 +45,7 @@ public class Profile_Activity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("users");
         mPlan= FirebaseDatabase.getInstance().getReference().child("plan");
+
         progressDialog.show();
         getUserData();
         binding.refer.setOnClickListener(v->{
@@ -61,6 +62,13 @@ public class Profile_Activity extends AppCompatActivity {
            }else{
                Toast.makeText(this, "Your Account is Already Paid", Toast.LENGTH_SHORT).show();
            }
+        });
+        binding.teamBtn.setOnClickListener(v->{
+            if (!userModels.getTeam().equals("")){
+                startActivity(new Intent(getApplicationContext(),Rank_Activity.class));
+            }else{
+                Toast.makeText(this, "You don't have team", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

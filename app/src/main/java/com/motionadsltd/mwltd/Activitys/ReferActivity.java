@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -50,7 +52,11 @@ public class ReferActivity extends AppCompatActivity {
         mRefer= FirebaseDatabase.getInstance().getReference().child("refer");
         getData();
         binding.copyRef.setOnClickListener(v->{
-
+            setClipboard(getApplicationContext(),userModels.getRefercode());
+        });
+        binding.shareRef.setOnClickListener(v->{
+            String msg="Hello My refer code "+userModels.getRefercode()+" And Join My Team "+sendRevire();
+            shareText(msg);
         });
 
     }
@@ -172,7 +178,6 @@ public class ReferActivity extends AppCompatActivity {
 
 
     }
-
     private void getData() {
         mRef.child(mAuth.getUid())
                 .addValueEventListener(new ValueEventListener() {
@@ -191,5 +196,28 @@ public class ReferActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    private void setClipboard(Context context, String text) {
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+        Toast.makeText(context, "Copy", Toast.LENGTH_SHORT).show();
+    }
+    private String sendRevire(){
+        final String appPackageName = getApplicationContext().getPackageName();
+        String url="https://play.google.com/store/apps/details?id=" + appPackageName;
+        return  url;
+    }
+    public void shareText(String body) {
+        Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
+        txtIntent .setType("text/plain");
+        txtIntent .putExtra(android.content.Intent.EXTRA_SUBJECT, "Invite And Eran");
+        txtIntent .putExtra(android.content.Intent.EXTRA_TEXT, body);
+        startActivity(Intent.createChooser(txtIntent ,"Share"));
     }
 }
