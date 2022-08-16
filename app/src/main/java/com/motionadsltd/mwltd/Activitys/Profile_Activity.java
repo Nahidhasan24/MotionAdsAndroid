@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,11 +46,30 @@ public class Profile_Activity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("users");
         mPlan= FirebaseDatabase.getInstance().getReference().child("plan");
-
         progressDialog.show();
         getUserData();
         binding.refer.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(),ReferActivity.class));
+        });
+        binding.logoutBtn.setOnClickListener(v->{
+          AlertDialog.Builder builder=new AlertDialog.Builder(Profile_Activity.this);
+          builder.setTitle("Logout");
+          builder.setMessage("Do you want to SignOut ?");
+          builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                  mAuth.signOut();
+                  startActivity(new Intent(getApplicationContext(), Login_Activity.class));
+                  finishAffinity();
+              }
+          }).setPositiveButton("No", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                  dialogInterface.dismiss();
+              }
+          });
+          AlertDialog alertDialog=builder.create();
+          alertDialog.show();
         });
         //upgrading plan
         binding.upgreadBtn.setOnClickListener(v->{

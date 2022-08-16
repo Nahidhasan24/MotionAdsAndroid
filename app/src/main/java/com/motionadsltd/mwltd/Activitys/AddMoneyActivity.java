@@ -20,6 +20,10 @@ import com.motionadsltd.mwltd.Models.Appconfig;
 import com.motionadsltd.mwltd.R;
 import com.motionadsltd.mwltd.databinding.ActivityAddMoneyBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddMoneyActivity extends AppCompatActivity {
 
     ActivityAddMoneyBinding binding;
@@ -58,7 +62,7 @@ public class AddMoneyActivity extends AppCompatActivity {
     }
 
     private void uploadData(String amoun, String tranid) {
-        AddModle addModle=new AddModle(mAuth.getUid(),tranid,Integer.parseInt(amoun.replace(",","")));
+        AddModle addModle=new AddModle(mAuth.getUid(),tranid,getTimeDate(),Integer.parseInt(amoun.replace(",","")));
         mAddMoney.child(mAuth.getUid())
                 .setValue(addModle)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -112,5 +116,11 @@ public class AddMoneyActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private String getTimeDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
+        return currentDateandTime;
     }
 }

@@ -31,7 +31,6 @@ public class Login_Activity extends AppCompatActivity {
         progressDialog.setTitle("Loading....");
         mAuth = FirebaseAuth.getInstance();
         //check user is login or not
-        checkLogin();
         binding.loginbtn.setOnClickListener(v -> {
             String mail, pass;
             mail = binding.lmail.getText().toString();
@@ -54,12 +53,7 @@ public class Login_Activity extends AppCompatActivity {
         });
 
     }
-    private void checkLogin() {
-        if (mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finishAffinity();
-        }
-    }
+
     private void loginUser(String mail, String pass) {
         //checking user data for login
         mAuth.signInWithEmailAndPassword(mail, pass)

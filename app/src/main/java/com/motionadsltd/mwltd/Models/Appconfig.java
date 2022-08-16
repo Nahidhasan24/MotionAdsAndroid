@@ -2,17 +2,18 @@ package com.motionadsltd.mwltd.Models;
 
 public class Appconfig {
     String addmoneynotice,addmoneynumber,notice,server;
-    int minwithdraw;
+    int minwithdraw,vcode;
 
     public Appconfig() {
     }
 
-    public Appconfig(String addmoneynotice, String addmoneynumber, String notice, String server, int minwithdraw) {
+    public Appconfig(String addmoneynotice, String addmoneynumber, String notice, String server, int minwithdraw, int vcode) {
         this.addmoneynotice = addmoneynotice;
         this.addmoneynumber = addmoneynumber;
         this.notice = notice;
         this.server = server;
         this.minwithdraw = minwithdraw;
+        this.vcode = vcode;
     }
 
     public String getAddmoneynotice() {
@@ -53,5 +54,13 @@ public class Appconfig {
 
     public void setMinwithdraw(int minwithdraw) {
         this.minwithdraw = minwithdraw;
+    }
+
+    public int getVcode() {
+        return vcode;
+    }
+
+    public void setVcode(int vcode) {
+        this.vcode = vcode;
     }
 }

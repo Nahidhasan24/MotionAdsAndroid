@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.motionadsltd.mwltd.Adapters.SliderAdapterExample;
 import com.motionadsltd.mwltd.Models.Appconfig;
 import com.motionadsltd.mwltd.Models.InterAds;
+import com.motionadsltd.mwltd.Models.PlanModle;
 import com.motionadsltd.mwltd.Models.SliderItem;
 import com.motionadsltd.mwltd.Models.UserModels;
 import com.motionadsltd.mwltd.Models.VideoAdsModel;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mRef;
     DatabaseReference mSlider;
     DatabaseReference mAds;
+    DatabaseReference mPlan;
+    PlanModle planModle;
     VideoAdsModel videoAdsModel;
     UserModels userModels;
     int USER_COIN=0;
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mSlider = FirebaseDatabase.getInstance().getReference().child("slider");
         mConfig = FirebaseDatabase.getInstance().getReference().child("appconfig");
         mAds = FirebaseDatabase.getInstance().getReference().child("ads");
+        mPlan = FirebaseDatabase.getInstance().getReference().child("plan");
         // init progress dialog
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setCancelable(false);
@@ -224,8 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
+    
     private void getVideoAdsData() {
         mAds.child(mAuth.getUid())
                 .child("videoads")
@@ -465,15 +468,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mPlan.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    planModle=snapshot.getValue(PlanModle.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         mRef.child(mAuth.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         userModels=snapshot.getValue(UserModels.class);
                         if (userModels.getAccount().equals("free")){
-                            USER_COIN=1;
+                            USER_COIN=planModle.getFreeuser();
                         }else {
-                            USER_COIN=5;
+                            USER_COIN=planModle.getPaiduser();
                         }
                     }
 
@@ -482,6 +498,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
 
     }
 

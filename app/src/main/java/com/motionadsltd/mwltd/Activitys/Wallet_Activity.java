@@ -49,13 +49,14 @@ public class Wallet_Activity extends AppCompatActivity {
         mWithdraw = FirebaseDatabase.getInstance().getReference().child("withdraw");
         mHistory = FirebaseDatabase.getInstance().getReference().child("history");
         getUserData();
+        binding.group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                mathod=getId(i);
+            }
+        });
         binding.withdrowbtn.setOnClickListener(view -> {
-           binding.group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-               @Override
-               public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                   mathod=getId(i);
-               }
-           });
+
            number=binding.number.getText().toString();
            amount=binding.amount.getText().toString();
            int am=Integer.parseInt(amount);

@@ -4,125 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.Profile_Activity"
+    android:background="@drawable/newui"
     android:orientation="vertical"
-    android:background="@drawable/newui">
+    tools:context=".Activitys.Profile_Activity">
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_alignParentTop="true"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_700"
-        >
-        <LinearLayout
+        android:layout_alignParentTop="true"
+        android:background="@color/purple_700">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Profile"
-                android:textSize="20sp"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/logoutBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_login_24" />
+
+        </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.cardview.widget.CardView
-        app:cardElevation="20dp"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_centerInParent="true"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_height="450dp">
+        app:cardElevation="20dp">
 
         <LinearLayout
-            android:layout_gravity="center"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/profileCoinTV"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <TextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/profileNameTV"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/profileMailTV"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/profileNumberTV"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/profilePlan"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/upgreadBtn"
-                android:layout_marginStart="20sp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginStart="20sp"
                 android:layout_marginTop="20dp"
-                android:weightSum="10"
-                android:orientation="horizontal">
+                android:layout_marginEnd="20dp"
+                android:background="@color/gray"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
                     <ImageView
-                        android:layout_margin="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/star"/>
+                        android:layout_margin="5dp"
+                        android:src="@drawable/star" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_height="match_parent">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Upgread Package"
-                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textColor="@color/black"/>
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
@@ -130,30 +145,33 @@
 
             <LinearLayout
                 android:id="@+id/refer"
-                android:layout_marginStart="20sp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginStart="20sp"
                 android:layout_marginTop="20dp"
-                android:weightSum="10"
-                android:orientation="horizontal">
+                android:layout_marginEnd="20dp"
+                android:background="@color/gray"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
                     <ImageView
-                        android:layout_margin="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_baseline_groups_2_24"/>
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_baseline_groups_2_24" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_height="match_parent">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -169,30 +187,33 @@
 
             <LinearLayout
                 android:id="@+id/teamBtn"
-                android:layout_marginStart="20sp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginStart="20sp"
                 android:layout_marginTop="20dp"
-                android:weightSum="10"
-                android:orientation="horizontal">
+                android:layout_marginEnd="20dp"
+                android:background="@color/gray"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
                     <ImageView
-                        android:layout_margin="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_baseline_groups_2_24"/>
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_baseline_groups_2_24" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_height="match_parent">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -207,15 +228,9 @@
             </LinearLayout>
 
 
-
-
-
-
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>
