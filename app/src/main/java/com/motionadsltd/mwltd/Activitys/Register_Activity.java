@@ -92,7 +92,7 @@ public class Register_Activity extends AppCompatActivity {
             progressDialog.show();
         });
         binding.alreadyregis.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), Register_Activity.class));
+            startActivity(new Intent(getApplicationContext(), Login_Activity.class));
         });
 
     }

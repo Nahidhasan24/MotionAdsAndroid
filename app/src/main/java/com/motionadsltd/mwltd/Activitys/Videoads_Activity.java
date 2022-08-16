@@ -55,9 +55,12 @@ public class Videoads_Activity extends AppCompatActivity {
         mUser= FirebaseDatabase.getInstance().getReference().child("users");
         progressDialog.show();
         GET_USER_COIN=getIntent().getIntExtra("coin",0);
-        checkButtons();
+
+                checkButtons();
         getUserData();
         binding.videoadd1.setOnClickListener(v->{
+
+
 
             HashMap<String,Object> map=new HashMap<>();
             map.put("ad1","done");

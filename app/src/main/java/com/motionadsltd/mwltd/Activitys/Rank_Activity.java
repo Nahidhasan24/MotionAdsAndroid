@@ -55,9 +55,10 @@ public class Rank_Activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                     TeamsModel teamsModel=dataSnapshot.getValue(TeamsModel.class);
-                    if (teamsModel.getTeam().equals(userModels.getTeam())){
+                    if (teamsModel.getTeam().equals(userModels.getTeam())||
+                            teamsModel.getTeam().equals(userModels.getRefercode())){
                         teamsModelArrayList.add(teamsModel);
-                      loadData(teamsModel);
+                       loadData(teamsModel);
                     }
                 }
             }

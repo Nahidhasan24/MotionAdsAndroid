@@ -69,6 +69,9 @@ public class Wallet_Activity extends AppCompatActivity {
             }if (am<=appconfig.getMinwithdraw()){
                 Toast.makeText(this, "You need minimum "+appconfig.getMinwithdraw()+" coin to withdraw", Toast.LENGTH_LONG).show();
                 return;
+            }if(am>=userModels.getCoin()){
+                Toast.makeText(this, "LOL HaHa", Toast.LENGTH_SHORT).show();
+                return;
             }
            int mainCoin=userModels.getCoin()-am;
             WithdrawModle withdrawModle=new WithdrawModle(userModels.getName(),mAuth.getUid(),number,getTimeDate(),mathod,"pending",am);

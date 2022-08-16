@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.motionadsltd.mwltd.Models.PlanModle;
+import com.motionadsltd.mwltd.Models.TeamsModel;
 import com.motionadsltd.mwltd.Models.UserModels;
 import com.motionadsltd.mwltd.R;
 import com.motionadsltd.mwltd.databinding.ActivityProfileBinding;
@@ -32,6 +33,7 @@ public class Profile_Activity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mRef;
     DatabaseReference mPlan;
+    DatabaseReference mTeam;
     UserModels userModels;
     PlanModle planModle;
     ProgressDialog progressDialog;
@@ -46,6 +48,7 @@ public class Profile_Activity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("users");
         mPlan= FirebaseDatabase.getInstance().getReference().child("plan");
+        mTeam= FirebaseDatabase.getInstance().getReference().child("teams");
         progressDialog.show();
         getUserData();
         binding.refer.setOnClickListener(v->{
@@ -84,11 +87,32 @@ public class Profile_Activity extends AppCompatActivity {
            }
         });
         binding.teamBtn.setOnClickListener(v->{
-            if (!userModels.getTeam().equals("")){
-                startActivity(new Intent(getApplicationContext(),Rank_Activity.class));
-            }else{
-                Toast.makeText(this, "You don't have team", Toast.LENGTH_SHORT).show();
-            }
+            mTeam.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            TeamsModel teamsModel = dataSnapshot.getValue(TeamsModel.class);
+                            if (teamsModel.getTeam().equals(userModels.getRefercode())) {
+                                startActivity(new Intent(getApplicationContext(),Rank_Activity.class));
+                            }else if (!userModels.getTeam().equals("")){
+                                startActivity(new Intent(getApplicationContext(),Rank_Activity.class));
+                            }else{
+                                Toast.makeText(getApplicationContext(), "You don't have team", Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
         });
     }
 

@@ -2,7 +2,10 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
-
+//apply plugin: 'applovin-quality-service'
+//applovin {
+//    apiKey "YOUR_AD_REVIEW_KEY_HERE"
+//}
 android {
     compileSdk 32
 
@@ -32,10 +35,9 @@ android {
 
 dependencies {
 
-
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth'
@@ -46,5 +48,16 @@ dependencies {
     implementation "com.airbnb.android:lottie:5.2.0"
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Ads
+    //implementation 'com.applovin:applovin-sdk:11.4.4'
+    //implementation 'com.google.android.gms:play-services-ads:21.1.0'
+    //implementation 'com.ironsource.sdk:mediationsdk:7.2.4'
+
+//    implementation 'com.google.android.gms:play-services-appset:16.0.2'
+//    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+//    implementation 'com.google.android.gms:play-services-basement:18.1.0'
+
+
     //implementation 'com.google.android.gms:play-services-ads:21.0.0'
 }

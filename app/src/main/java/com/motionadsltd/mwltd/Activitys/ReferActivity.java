@@ -117,8 +117,7 @@ public class ReferActivity extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                                                 TeamsModel teamsModel=new TeamsModel(userModels.getRefercode(),mAuth.getUid(),model.getRefercode());
-                                                mTeam.child(model.getTeam())
-                                                        .child(mAuth.getUid())
+                                                mTeam.child(mAuth.getUid())
                                                         .setValue(teamsModel)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
@@ -185,6 +184,7 @@ public class ReferActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         userModels=snapshot.getValue(UserModels.class);
                         binding.referCodeTV.setText(""+userModels.getRefercode());
+                        binding.totalRefer.setText(""+userModels.getRefercount());
                         if (userModels.getReferby().equals("")){
                             loadDiaload();
                         }
