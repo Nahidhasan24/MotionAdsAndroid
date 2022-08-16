@@ -43,18 +43,38 @@ public class SplashActivity extends AppCompatActivity {
                 appconfig = snapshot.getValue(Appconfig.class);
                 double vertion = (int) appconfig.getVcode();
                 if (vertion <= getAppVer(getApplicationContext())) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mAuth.getCurrentUser() != null) {
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finishAffinity();
-                            } else {
-                                startActivity(new Intent(getApplicationContext(), Login_Activity.class));
-                                finishAffinity();
+                    if (appconfig.getServer().equals("off")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+                        builder.setTitle("Alert !");
+                        builder.setMessage("Server is Currently on maintenance !");
+                        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                moveTaskToBack(true);
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                                System.exit(1);
                             }
-                        }
-                    }, 3000);
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }else{
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mAuth.getCurrentUser() != null) {
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finishAffinity();
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), Login_Activity.class));
+                                    finishAffinity();
+                                }
+                            }
+                        }, 3000);
+                    }
+
+
                 } else {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
@@ -76,6 +96,7 @@ public class SplashActivity extends AppCompatActivity {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }
+
             }
 
             @Override
