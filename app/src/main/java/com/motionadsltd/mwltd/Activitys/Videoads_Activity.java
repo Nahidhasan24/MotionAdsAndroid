@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.adcolony.sdk.AdColony;
+import com.adcolony.sdk.AdColonyAdOptions;
+import com.adcolony.sdk.AdColonyInterstitial;
+import com.adcolony.sdk.AdColonyInterstitialListener;
+import com.adcolony.sdk.AdColonyReward;
+import com.adcolony.sdk.AdColonyRewardListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,10 +24,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ironsource.mediationsdk.IronSource;
+import com.ironsource.mediationsdk.logger.IronSourceError;
+import com.ironsource.mediationsdk.sdk.InitializationListener;
+import com.ironsource.mediationsdk.sdk.InterstitialListener;
 import com.motionadsltd.mwltd.Models.UserModels;
 import com.motionadsltd.mwltd.Models.VideoAdsModel;
 import com.motionadsltd.mwltd.R;
 import com.motionadsltd.mwltd.databinding.ActivityVideoadsBinding;
+import com.startapp.sdk.adsbase.Ad;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppSDK;
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
+import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,11 +57,29 @@ public class Videoads_Activity extends AppCompatActivity {
     UserModels userModels;
     ProgressDialog progressDialog;
     int GET_USER_COIN=0;
+    AdColonyInterstitial ad;
+    AdColonyInterstitialListener listener;
+    AdColonyAdOptions adOptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityVideoadsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        StartAppSDK.init(this, getString(R.string.startapp_app_id), false);
+        AdColony.configure(Videoads_Activity.this,getString(R.string.ad_colony_app_id),getString(R.string.ad_colony_zone_id));
+        AdColony.setRewardListener(new AdColonyRewardListener() {
+            @Override
+            public void onReward(@NonNull AdColonyReward adColonyReward) {
+
+            }
+        });
+        IronSource.init(Videoads_Activity.this, getString(R.string.ironsource_id), new InitializationListener() {
+            @Override
+            public void onInitializationComplete() {
+            }
+        });
+
+        IronSource.loadInterstitial();
         progressDialog=new ProgressDialog(Videoads_Activity.this);
         progressDialog.setTitle("Loading...");
         progressDialog.setCancelable(false);
@@ -59,183 +92,307 @@ public class Videoads_Activity extends AppCompatActivity {
                 checkButtons();
         getUserData();
         binding.videoadd1.setOnClickListener(v->{
+            AdColonyInterstitialListener listener=new AdColonyInterstitialListener() {
+                @Override
+                public void onRequestFilled(AdColonyInterstitial adColonyInterstitial) {
+                    ad=adColonyInterstitial;
+                    ad.show();
 
+                }
 
+                @Override
+                public void onClosed(AdColonyInterstitial ad) {
+                    super.onClosed(ad);
 
-            HashMap<String,Object> map=new HashMap<>();
-            map.put("ad1","done");
-            mRef.child(mAuth.getUid())
-                    .child("videoads")
-                    .updateChildren(map)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
-                                if (videoAdsModel.getAd1().equals("done")&&
-                                        videoAdsModel.getAd2().equals("done")&&
-                                        videoAdsModel.getAd3().equals("done")&&
-                                        videoAdsModel.getAd4().equals("done")&&
-                                        videoAdsModel.getAd5().equals("done")){
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("ad1","done");
+                    mRef.child(mAuth.getUid())
+                            .child("videoads")
+                            .updateChildren(map)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                        if (videoAdsModel.getAd1().equals("done")&&
+                                                videoAdsModel.getAd2().equals("done")&&
+                                                videoAdsModel.getAd3().equals("done")&&
+                                                videoAdsModel.getAd4().equals("done")&&
+                                                videoAdsModel.getAd5().equals("done")){
 
-                                    int use=videoAdsModel.getUse()+1;
-                                    HashMap<String, Object> map = new HashMap<>();
-                                    map.put("use",use);
-                                    map.put("last",getIncreasTime());
-                                    mRef.child(mAuth.getUid())
-                                            .child("videoads")
-                                            .updateChildren(map);
+                                            int use=videoAdsModel.getUse()+1;
+                                            HashMap<String, Object> map = new HashMap<>();
+                                            map.put("use",use);
+                                            map.put("last",getIncreasTime());
+                                            mRef.child(mAuth.getUid())
+                                                    .child("videoads")
+                                                    .updateChildren(map);
 
+                                        }
+                                    }else{
+                                        Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }else{
-                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                            });
+
+                }
+            };
+            AdColony.requestInterstitial(getString(R.string.ad_colony_zone_id),listener,adOptions);
+
+
+
         });
         binding.videoadd2.setOnClickListener(v->{
+            IronSource.setInterstitialListener(new InterstitialListener() {
+                /**
+                 * Invoked when Interstitial Ad is ready to be shown after load function was called.
+                 */
+                @Override
+                public void onInterstitialAdReady() {
+                }
+                /**
+                 * invoked when there is no Interstitial Ad available after calling load function.
+                 */
+                @Override
+                public void onInterstitialAdLoadFailed(IronSourceError error) {
+                }
+                /**
+                 * Invoked when the Interstitial Ad Unit is opened
+                 */
+                @Override
+                public void onInterstitialAdOpened() {
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("ad2","done");
+                    mRef.child(mAuth.getUid())
+                            .child("videoads")
+                            .updateChildren(map)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                        if (videoAdsModel.getAd1().equals("done")&&
+                                                videoAdsModel.getAd2().equals("done")&&
+                                                videoAdsModel.getAd3().equals("done")&&
+                                                videoAdsModel.getAd4().equals("done")&&
+                                                videoAdsModel.getAd5().equals("done")){
+                                            int use=videoAdsModel.getUse()+1;
+                                            HashMap<String, Object> map = new HashMap<>();
+                                            map.put("use",use);
+                                            map.put("last",getIncreasTime());
+                                            mRef.child(mAuth.getUid())
+                                                    .child("videoads")
+                                                    .updateChildren(map);
 
-            HashMap<String,Object> map=new HashMap<>();
-            map.put("ad2","done");
-            mRef.child(mAuth.getUid())
-                    .child("videoads")
-                    .updateChildren(map)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
-                                if (videoAdsModel.getAd1().equals("done")&&
-                                        videoAdsModel.getAd2().equals("done")&&
-                                        videoAdsModel.getAd3().equals("done")&&
-                                        videoAdsModel.getAd4().equals("done")&&
-                                        videoAdsModel.getAd5().equals("done")){
-                                    int use=videoAdsModel.getUse()+1;
-                                    HashMap<String, Object> map = new HashMap<>();
-                                    map.put("use",use);
-                                    map.put("last",getIncreasTime());
-                                    mRef.child(mAuth.getUid())
-                                            .child("videoads")
-                                            .updateChildren(map);
-
+                                        }
+                                    }else{
+                                        Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }else{
-                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                            });
+                }
+                /*
+                 * Invoked when the ad is closed and the user is about to return to the application.
+                 */
+                @Override
+                public void onInterstitialAdClosed() {
+                }
+                /**
+                 * Invoked when Interstitial ad failed to show.
+                 * @param error - An object which represents the reason of showInterstitial failure.
+                 */
+                @Override
+                public void onInterstitialAdShowFailed(IronSourceError error) {
+                }
+                /*
+                 * Invoked when the end user clicked on the interstitial ad, for supported networks only.
+                 */
+                @Override
+                public void onInterstitialAdClicked() {
+                }
+                /** Invoked right before the Interstitial screen is about to open.
+                 *  NOTE - This event is available only for some of the networks.
+                 *  You should NOT treat this event as an interstitial impression, but rather use InterstitialAdOpenedEvent
+                 */
+                @Override
+                public void onInterstitialAdShowSucceeded() {
+                }
+            });
+            if (IronSource.isInterstitialReady()){
+                IronSource.showInterstitial();
+            }else{
+                Toast.makeText(this, "Not Ready", Toast.LENGTH_SHORT).show();
+            }
+
         });
         binding.videoadd3.setOnClickListener(v->{
+            final StartAppAd rewardedVideo = new StartAppAd(this);
 
-            HashMap<String,Object> map=new HashMap<>();
-            map.put("ad3","done");
-            mRef.child(mAuth.getUid())
-                    .child("videoads")
-                    .updateChildren(map)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
-                                if (videoAdsModel.getAd1().equals("done")&&
-                                        videoAdsModel.getAd2().equals("done")&&
-                                        videoAdsModel.getAd3().equals("done")&&
-                                        videoAdsModel.getAd4().equals("done")&&
-                                        videoAdsModel.getAd5().equals("done")){
-                                    int use=videoAdsModel.getUse()+1;
-                                    HashMap<String, Object> map = new HashMap<>();
-                                    map.put("use",use);
-                                    map.put("last",getIncreasTime());
-                                    mRef.child(mAuth.getUid())
-                                            .child("videoads")
-                                            .updateChildren(map);
+            rewardedVideo.setVideoListener(new VideoListener() {
+                @Override
+                public void onVideoCompleted() {
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("ad3","done");
+                    mRef.child(mAuth.getUid())
+                            .child("videoads")
+                            .updateChildren(map)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                        if (videoAdsModel.getAd1().equals("done")&&
+                                                videoAdsModel.getAd2().equals("done")&&
+                                                videoAdsModel.getAd3().equals("done")&&
+                                                videoAdsModel.getAd4().equals("done")&&
+                                                videoAdsModel.getAd5().equals("done")){
+                                            int use=videoAdsModel.getUse()+1;
+                                            HashMap<String, Object> map = new HashMap<>();
+                                            map.put("use",use);
+                                            map.put("last",getIncreasTime());
+                                            mRef.child(mAuth.getUid())
+                                                    .child("videoads")
+                                                    .updateChildren(map);
 
+                                        }
+                                    }else{
+                                        Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }else{
-                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                            });
+
+                }
+            });
+
+            rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+                @Override
+                public void onReceiveAd(Ad ad) {
+                    rewardedVideo.showAd();
+                }
+
+                @Override
+                public void onFailedToReceiveAd(Ad ad) {
+                    Toast.makeText(getApplicationContext(), "Can't show rewarded video", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
         });
         binding.videoadd4.setOnClickListener(v->{
+            AdColonyInterstitialListener listener=new AdColonyInterstitialListener() {
+                @Override
+                public void onRequestFilled(AdColonyInterstitial adColonyInterstitial) {
+                    ad=adColonyInterstitial;
+                    ad.show();
 
-            HashMap<String,Object> map=new HashMap<>();
-            map.put("ad4","done");
-            mRef.child(mAuth.getUid())
-                    .child("videoads")
-                    .updateChildren(map)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
-                                if (videoAdsModel.getAd1().equals("done")&&
-                                        videoAdsModel.getAd2().equals("done")&&
-                                        videoAdsModel.getAd3().equals("done")&&
-                                        videoAdsModel.getAd4().equals("done")&&
-                                        videoAdsModel.getAd5().equals("done")){
-                                    int use=videoAdsModel.getUse()+1;
-                                    HashMap<String, Object> map = new HashMap<>();
-                                    map.put("use",use);
-                                    map.put("last",getIncreasTime());
-                                    mRef.child(mAuth.getUid())
-                                            .child("videoads")
-                                            .updateChildren(map);
+                }
 
+                @Override
+                public void onClosed(AdColonyInterstitial ad) {
+                    super.onClosed(ad);
+
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("ad4","done");
+                    mRef.child(mAuth.getUid())
+                            .child("videoads")
+                            .updateChildren(map)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                        if (videoAdsModel.getAd1().equals("done")&&
+                                                videoAdsModel.getAd2().equals("done")&&
+                                                videoAdsModel.getAd3().equals("done")&&
+                                                videoAdsModel.getAd4().equals("done")&&
+                                                videoAdsModel.getAd5().equals("done")){
+                                            int use=videoAdsModel.getUse()+1;
+                                            HashMap<String, Object> map = new HashMap<>();
+                                            map.put("use",use);
+                                            map.put("last",getIncreasTime());
+                                            mRef.child(mAuth.getUid())
+                                                    .child("videoads")
+                                                    .updateChildren(map);
+
+                                        }
+                                    }else{
+                                        Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }else{
-                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                            });
+
+                }
+            };
+            AdColony.requestInterstitial(getString(R.string.ad_colony_zone_id),listener,adOptions);
+
         });
         binding.videoadd5.setOnClickListener(v->{
+            final StartAppAd rewardedVideo = new StartAppAd(this);
 
-            HashMap<String,Object> map=new HashMap<>();
-            map.put("ad5","done");
-            mRef.child(mAuth.getUid())
-                    .child("videoads")
-                    .updateChildren(map)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
-                                if (videoAdsModel.getAd1().equals("done")&&
-                                        videoAdsModel.getAd2().equals("done")&&
-                                        videoAdsModel.getAd3().equals("done")&&
-                                        videoAdsModel.getAd4().equals("done")&&
-                                        videoAdsModel.getAd5().equals("done")){
-                                    int use=videoAdsModel.getUse()+1;
-                                    HashMap<String, Object> map = new HashMap<>();
-                                    map.put("use",use);
-                                    map.put("last",getIncreasTime());
-                                    mRef.child(mAuth.getUid())
-                                            .child("videoads")
-                                            .updateChildren(map)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
+            rewardedVideo.setVideoListener(new VideoListener() {
+                @Override
+                public void onVideoCompleted() {
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("ad5","done");
+                    mRef.child(mAuth.getUid())
+                            .child("videoads")
+                            .updateChildren(map)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(Videoads_Activity.this, "Done", Toast.LENGTH_SHORT).show();
+                                        if (videoAdsModel.getAd1().equals("done")&&
+                                                videoAdsModel.getAd2().equals("done")&&
+                                                videoAdsModel.getAd3().equals("done")&&
+                                                videoAdsModel.getAd4().equals("done")&&
+                                                videoAdsModel.getAd5().equals("done")){
+                                            int use=videoAdsModel.getUse()+1;
+                                            HashMap<String, Object> map = new HashMap<>();
+                                            map.put("use",use);
+                                            map.put("last",getIncreasTime());
+                                            mRef.child(mAuth.getUid())
+                                                    .child("videoads")
+                                                    .updateChildren(map)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()){
 
-                                                int mainCoin=userModels.getCoin()+GET_USER_COIN;
-                                                HashMap<String,Object> hashMap=new HashMap<>();
-                                                hashMap.put("coin",mainCoin);
-                                                mUser.child(mAuth.getUid())
-                                                        .updateChildren(hashMap);
+                                                                int mainCoin=userModels.getCoin()+GET_USER_COIN;
+                                                                HashMap<String,Object> hashMap=new HashMap<>();
+                                                                hashMap.put("coin",mainCoin);
+                                                                mUser.child(mAuth.getUid())
+                                                                        .updateChildren(hashMap);
 
-                                            }else{
-                                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                                            }
+                                                            }else{
+                                                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+
                                         }
-                                    });
-
+                                    }else{
+                                        Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }else{
-                                Toast.makeText(Videoads_Activity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                            });
+                }
+            });
+
+            rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+                @Override
+                public void onReceiveAd(Ad ad) {
+                    rewardedVideo.showAd();
+                }
+
+                @Override
+                public void onFailedToReceiveAd(Ad ad) {
+                    Toast.makeText(getApplicationContext(), "Can't show rewarded video", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
         });
     }
 

@@ -3,11 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-//        maven {
-//            url 'https://artifacts.applovin.com/android'
-//        }
         maven { url 'https://jitpack.io' }
-
     }
 }
 dependencyResolutionManagement {
@@ -17,7 +13,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-
+        maven {
+            url 'https://android-sdk.is.com/'
+        }
 
     }
 }

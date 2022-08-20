@@ -39,6 +39,7 @@ public class ReferActivity extends AppCompatActivity {
     DatabaseReference mRefer;
     UserModels userModels;
     String uid;
+    Boolean isTeam=false;
     ArrayList<ReferModle> referModleArrayList=new ArrayList<>();
 
     @Override
@@ -178,6 +179,7 @@ public class ReferActivity extends AppCompatActivity {
 
     }
     private void getData() {
+
         mRef.child(mAuth.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -185,8 +187,28 @@ public class ReferActivity extends AppCompatActivity {
                         userModels=snapshot.getValue(UserModels.class);
                         binding.referCodeTV.setText(""+userModels.getRefercode());
                         binding.totalRefer.setText(""+userModels.getRefercount());
-                        if (userModels.getReferby().equals("")){
-                            loadDiaload();
+
+                        mTeam.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                                        TeamsModel teamsModel=dataSnapshot.getValue(TeamsModel.class);
+                                        if (teamsModel.getTeam().equals(userModels.getRefercode())){
+                                            isTeam=true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        if (userModels.getReferby().equals("")&& !isTeam){
+                                loadDiaload();
                         }
                     }
 

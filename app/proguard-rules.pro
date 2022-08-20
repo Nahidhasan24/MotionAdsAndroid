@@ -20,3 +20,21 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# For communication with AdColony's WebView
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+-keep class com.startapp.** {
+      *;
+}
+
+-keep class com.truenet.** {
+      *;
+}
+
+-keepattributes Exceptions, InnerClasses, Signature, Deprecated, SourceFile,
+LineNumberTable, *Annotation*, EnclosingMethod
+-dontwarn android.webkit.JavascriptInterface
+-dontwarn com.startapp.**
+
+-dontwarn org.jetbrains.annotations.**
