@@ -1,9 +1,11 @@
 package com.motionadsltd.mwltd.Activitys;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         getVideoAdsData();
         getInterAdsData();
         getClickAdsData();
+        getAccountStat();
 
         binding.videoAdsBtn.setOnClickListener(v -> {
 
@@ -228,7 +231,28 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    
+
+    private void getAccountStat() {
+        if (userModels.getStatus().equals("off")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Alert !");
+            builder.setMessage("Your Account is Band !");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    moveTaskToBack(true);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    System.exit(1);
+                }
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+    }
+
     private void getVideoAdsData() {
         mAds.child(mAuth.getUid())
                 .child("videoads")

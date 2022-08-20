@@ -46,6 +46,7 @@ public class SplashActivity extends AppCompatActivity {
                     if (appconfig.getServer().equals("off")){
                         AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
                         builder.setTitle("Alert !");
+                        builder.setCancelable(false);
                         builder.setMessage("Server is Currently on maintenance !");
                         builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
@@ -79,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
                     builder.setTitle("Alert !");
+                    builder.setCancelable(false);
                     builder.setMessage("New version of this app is available on app store please update !");
                     builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override

@@ -137,6 +137,10 @@ public class ReferActivity extends AppCompatActivity {
                                                                                        HashMap<String,Object> map=new HashMap<>();
                                                                                        map.put("referby",model.getRefercode());
                                                                                        map.put("team",model.getRefercode());
+                                                                                       if (userModels.getAccount().equals("paid")&&model.getAccount().equals("paid")){
+                                                                                           int mainPoint=model.getCoin()+30;
+                                                                                           map.put("coin",mainPoint);
+                                                                                       }
                                                                                        mRef.child(mAuth.getUid())
                                                                                                .updateChildren(map)
                                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {

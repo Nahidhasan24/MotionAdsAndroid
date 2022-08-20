@@ -63,6 +63,7 @@ public class Clickads_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityClickadsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         StartAppSDK.init(this, getString(R.string.startapp_app_id), false);
         AdColony.configure(Clickads_Activity.this,getString(R.string.ad_colony_app_id),getString(R.string.ad_colony_zone_id));
         AdColony.setRewardListener(new AdColonyRewardListener() {
@@ -81,7 +82,6 @@ public class Clickads_Activity extends AppCompatActivity {
         progressDialog=new ProgressDialog(Clickads_Activity.this);
         progressDialog.setTitle("Loading...");
         progressDialog.setCancelable(false);
-        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         mAuth= FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("ads");
         mUser= FirebaseDatabase.getInstance().getReference().child("users");

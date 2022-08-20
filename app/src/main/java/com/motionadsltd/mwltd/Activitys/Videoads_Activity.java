@@ -65,6 +65,7 @@ public class Videoads_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityVideoadsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         StartAppSDK.init(this, getString(R.string.startapp_app_id), false);
         AdColony.configure(Videoads_Activity.this,getString(R.string.ad_colony_app_id),getString(R.string.ad_colony_zone_id));
         AdColony.setRewardListener(new AdColonyRewardListener() {
@@ -87,7 +88,7 @@ public class Videoads_Activity extends AppCompatActivity {
         mRef= FirebaseDatabase.getInstance().getReference().child("ads");
         mUser= FirebaseDatabase.getInstance().getReference().child("users");
         progressDialog.show();
-        GET_USER_COIN=getIntent().getIntExtra("coin",0);
+
 
                 checkButtons();
         getUserData();

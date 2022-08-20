@@ -68,10 +68,10 @@ public class Webvisit_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityWebvisitBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         progressDialog=new ProgressDialog(Webvisit_Activity.this);
         progressDialog.setTitle("Loading...");
         progressDialog.setCancelable(false);
-        GET_USER_COIN=getIntent().getIntExtra("coin",0);
         mAuth= FirebaseAuth.getInstance();
         mRef= FirebaseDatabase.getInstance().getReference().child("ads");
         mUser= FirebaseDatabase.getInstance().getReference().child("users");
@@ -92,9 +92,7 @@ public class Webvisit_Activity extends AppCompatActivity {
                 Toast.makeText(Webvisit_Activity.this, "Inited", Toast.LENGTH_SHORT).show();
             }
         });
-
         IronSource.loadInterstitial();
-
         checkButtons();
         getUserData();
         binding.web1.setOnClickListener(v->{
