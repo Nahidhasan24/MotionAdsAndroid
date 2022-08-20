@@ -24,12 +24,12 @@ public class Login_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_login);
         progressDialog = new ProgressDialog(Login_Activity.this);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Loading....");
         mAuth = FirebaseAuth.getInstance();
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         //check user is login or not
         binding.loginbtn.setOnClickListener(v -> {
             String mail, pass;
