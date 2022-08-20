@@ -18,10 +18,10 @@
         android:gravity="center_horizontal"
         android:layout_height="match_parent">
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="150dp"
-            android:src="@drawable/motionadslogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/splashh"
             android:scaleType="fitCenter"
             />
 
@@ -29,7 +29,7 @@
             android:id="@+id/lmail"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:background="@drawable/custom_style"
             android:hint="User Mail :"
             android:inputType="textEmailAddress"
@@ -66,7 +66,7 @@
             android:id="@+id/loginbtn"
             android:layout_width="160dp"
             android:layout_height="60dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:textSize="25sp"
             android:textStyle="italic"
             android:text="Log in"
@@ -76,9 +76,9 @@
             android:id="@+id/newregister"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:text="New Register? Click Here"
-            android:textColor="#FB6E03"
+            android:textColor="#000000"
             android:textStyle="italic"
             android:textSize="20sp"
             />
